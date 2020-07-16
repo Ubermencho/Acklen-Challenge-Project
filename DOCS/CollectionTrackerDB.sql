@@ -5,7 +5,7 @@ use collectiontrackerdb;
 
 CREATE TABLE `users`(
 `userID` bigint NOT NULL auto_increment,
-`userEmail` varchar(50) NOT NULL,
+`userEmail` varchar(50) NOT NULL UNIQUE,
 `userPassword` varchar(100) NOT NULL,
 PRIMARY KEY (`userID`),
 UNIQUE KEY `userID_UNIQUE`(`userID`)
