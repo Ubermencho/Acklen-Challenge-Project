@@ -6,6 +6,7 @@ function initApi(){
     var userRouter = require('./user/user.js');
 
     router.use('/user', userRouter);
+    router.use('/collections', collectionsRouter);
 
     return router;
 }
