@@ -69,4 +69,97 @@ var con = mysql.createConnection({
         });
     });
 
+    //http://localhost:5000/api/collections/items/new
+    router.post('/item/new', (req, res)=>{
+        var itemName = req.body.itemname;
+        var description = req.body.description;
+        var value = parseFloat(req.body.itemvalue);
+        var condition = req.body.condition;
+        var picture = req.body.picture;
+        var collectionID = req.body.collectionid;
+
+        let sql = `insert into items (itemName, itemDescription, itemValue, itemCondition, picture, collectionID) values ('${itemName}', '${description}', ${value}, '${condition}', '${picture}', ${collectionID});`;
+
+        con.query(sql, function(err, result){
+            if(err) throw err;
+            if(result.affectedRows==0){
+                res.send("There was an error adding the item!");
+            }else{
+                res.send("Item added successfully!");
+            }
+        });
+    });
+
+    //http://localhost:5000/api/collections/item/upd/:id
+    router.put('/item/upd/:id', (req,res)=>{
+        var itemid = req.params.id;
+        var itemName = req.body.itemname;
+        var description = req.body.description;
+        var value = parseFloat(req.body.itemvalue);
+        var condition = req.body.condition;
+        var picture = req.body.picture; 
+
+        let sql = `update items set itemName='${itemName}', itemDescription='${description}', itemValue=${value}, itemCondition='${condition}', picture='${picture}' where itemID = ${itemid};`;
+
+        con.query(sql, function(err, result){
+            if(err) throw err;
+
+            if(result.affectedRows==0){
+                res.send("There was an error updating the item!");
+            }else{
+                res.send("Item updated successfully!");
+            }
+        });
+    });
+
+    //http://localhost:5000/api/collections/item/del/:id
+    router.delete('/item/del/:id', (req,res)=>{
+        var itemid = req.params.id;
+
+        let sql = `delete from items where itemID=${itemid};`;
+
+        con.query(sql, function(err, result){
+            if(err) throw err;
+            if(result.affectedRows==0){
+                res.send("There was an error deleting the item!");
+            }else{
+                res.send("Item deleted successfully!");
+            }
+        });
+    });
+
+    //http://localhost:5000/api/collections/unlist/:id
+    router.put('/unlist/:id', (req,res)=>{
+        var collectionid = req.params.id;
+        const state={state:0};
+
+        let sql = `update collections set state=0 where collectionID=${collectionid};`;
+        con.query(sql, function(err, result){
+            if(err) throw err;
+            if(result.affectedRows==0){
+                res.send("There was an error unlisting the collection!")
+            }else{
+                res.send("Collection unlisted successfully!");
+            }
+        });
+  
+    });
+
+    //http://localhost:5000/api/collections/relist/:id
+    router.put('/relist/:id', (req,res)=>{
+        var collectionid = req.params.id;
+        const state={state:0};
+
+        let sql = `update collections set state=1 where collectionID=${collectionid};`;
+        con.query(sql, function(err, result){
+            if(err) throw err;
+            if(result.affectedRows==0){
+                res.send("There was an error relisting the collection!")
+            }else{
+                res.send("Collection relisted successfully!");
+            }
+        });
+  
+    });
+
 module.exports = router;
