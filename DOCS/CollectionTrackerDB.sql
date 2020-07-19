@@ -27,10 +27,10 @@ CONSTRAINT `creatorID` FOREIGN KEY (`creatorID`) REFERENCES `users`(`userID`) ON
 
 CREATE TABLE `items`(
 `itemID` bigint NOT NULL auto_increment,
-`name` nvarchar(50) NOT NULL,
-`description` nvarchar(150) NOT NULL,
-`value` decimal(13,2) NOT NULL,
-`condition` varchar(30) NOT NULL,
+`itemName` nvarchar(50) NOT NULL,
+`itemDescription` nvarchar(150) NOT NULL,
+`itemValue` decimal(13,2) NOT NULL,
+`itemCondition` varchar(30) NOT NULL,
 `picture` blob,
 `collectionID` bigint NOT NULL,
 PRIMARY KEY (`itemID`),
