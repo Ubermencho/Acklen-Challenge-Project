@@ -33,7 +33,7 @@ const localStorageAvailable = (()=>{
 
 export const setLocalStorage = (key, value)=>{
     if(localStorageAvailable){
-        localStorage.setItem(key,vale);
+        localStorage.setItem(key,value);
         return true;
     }else{
         return false;
