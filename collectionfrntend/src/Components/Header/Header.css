@@ -28,12 +28,12 @@ header {
   nav ul li a {
     display: flex;
     padding: 1em;
-    color: #FE8424;
+    color: #0B0B0B;
     text-decoration: none;
     flex-direction: column;
-    justify-content: ceter;
+    justify-content: center;
     align-items: center;
   }
   nav ul li a:hover{
-    background-color: #777;
+    background-color: lightgreen;
   }
