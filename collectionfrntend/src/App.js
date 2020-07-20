@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import PrivateRoute from './Components/SecureRoutes/SecureRoute';
+import {setJWTBearer, setLocalStorage, getLocalStorage, removeLocalStorage} from './Components/Utilities/Utilities';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from './Components/Pages/Public/Home';
+
+class App extends Component {
+  constructor(){
+    super();
+    this.state={
+      user: getLocalStorage('user') || {},
+      jwt: getLocalStorage('jwt') || '',
+      isLogged: false,
+      loadingBackend: false
+    };
+    if(this.state.jwt !== ''){
+      this.state.isLogged = true;
+      setJWTBearer(this.state.jwt);
+    }
+  }
+
+    render(){
+      const auth = {
+        isLogged: this.state.isLogged,
+        user: this.state.user,
+      }
+
+      return(
+        <Router>
+          <div className="App">
+            <Switch>
+              <Route render={(props) => {return (<Home {...props} auth={auth}/>)}} path="/" exact/>
+            </Switch>
+          </div>
+        </Router>
+      )
+    }
+  
 }
 
 export default App;
