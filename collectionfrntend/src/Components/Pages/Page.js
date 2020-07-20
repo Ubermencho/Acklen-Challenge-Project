@@ -8,10 +8,10 @@ export default ({pageTitle, hideHeader, children, auth})=>{
     return(
         <section className="page">
             {(!finalHideHeader)?(<Header  auth={auth}></Header>):null}
-            <Footer>{pageTitle || "page"}</Footer>
             <main>
                 {children}
             </main>
+            <Footer>{pageTitle || "page"}</Footer>
         </section>
     );
 }

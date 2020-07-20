@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './Components/SecureRoutes/SecureRoute';
 import {setJWTBearer, setLocalStorage, getLocalStorage, removeLocalStorage} from './Components/Utilities/Utilities';
 
-import Home from './Components/Pages/Public/Home';
+import Home from './Components/Pages/Public/Home/Home';
 
 class App extends Component {
   constructor(){
