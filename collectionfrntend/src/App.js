@@ -5,6 +5,7 @@ import PrivateRoute from './Components/SecureRoutes/SecureRoute';
 import {setJWTBearer, setLocalStorage, getLocalStorage, removeLocalStorage} from './Components/Utilities/Utilities';
 
 import Home from './Components/Pages/Public/Home/Home';
+import SignIn from './Components/Pages/Public/Sign In/Signin';
 
 class App extends Component {
   constructor(){
@@ -32,6 +33,7 @@ class App extends Component {
           <div className="App">
             <Switch>
               <Route render={(props) => {return (<Home {...props} auth={auth}/>)}} path="/" exact/>
+              <Route render={(props) => {return (<SignIn {...props} auth={auth}/>)}} path="/signin" exact/>
             </Switch>
           </div>
         </Router>
