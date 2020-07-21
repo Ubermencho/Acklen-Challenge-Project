@@ -5,7 +5,7 @@ import {Actions} from '../../../Forms/Button';
 import {emailRegex, emptyRegex} from '../../../Forms/Validators';
 
 import {paxios, setLocalStorage} from '../../../Utilities/Utilities';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 
 export default class Login extends Component{
 
@@ -76,8 +76,9 @@ export default class Login extends Component{
                       alert(resp.data);
                   }else{
                       alert(resp.data.Message);
-                      this.props.login(resp.data.user);
-                      this.setState({...this.state, redirecTo: true });
+                      this.props.login(resp.data);
+                      this.setState({...this.state, redirectTo: true });
+                      
                   }
               })
               .catch((error)=>{
@@ -88,6 +89,10 @@ export default class Login extends Component{
 
 
       render(){
+        if (this.state.redirectTo){
+            const redirect = (this.props.location.state) ? this.props.location.state.from.pathname : '/privatehome';
+            return (<Redirect to={redirect} />);
+          }
         return(
             <Page pageTitle="Login" auth={this.props.auth}>
                 <body   className="body">

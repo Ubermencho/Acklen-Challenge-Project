@@ -8,6 +8,8 @@ import Home from './Components/Pages/Public/Home/Home';
 import SignIn from './Components/Pages/Public/Sign In/Signin';
 import LogIn from './Components/Pages/Public/Login/Login';
 
+import PrivateHome from './Components/Pages/Private/PrivateHome/PrivateHome';
+
 class App extends Component {
   constructor(){
     super();
@@ -27,22 +29,28 @@ class App extends Component {
   }
 
   login(user){
-    const  {jwt, ...fuser} = user;
+    //console.log(user);
+    const  jwt = user.jwt;
+    const fuser = user.user;
+    //console.log(fuser[0].userName);
     this.setState({
       ...this.state,
       isLogged:true,
       loadingBackend:false,
-      user:fuser,
+      user:fuser[0],
       jwt: jwt,
     });
+    console.log(this.state.user);
     setJWTBearer(jwt);
     setLocalStorage('jwt', jwt);
-    setLocalStorage('user', fuser);
+    setLocalStorage('userID', fuser[0].userID);
+    setLocalStorage('userName', fuser[0].userName);
   }
 
   logout(){
     removeLocalStorage('jwt');
-    removeLocalStorage('user');
+    removeLocalStorage('userID');
+    removeLocalStorage('userName');
     this.setState({
       ...this.state,
       isLogged:false,
@@ -55,7 +63,10 @@ class App extends Component {
       const auth = {
         isLogged: this.state.isLogged,
         user: this.state.user,
+        logout: this.logout,
       }
+
+      //console.log(auth);
 
       return(
         <Router>
@@ -64,6 +75,7 @@ class App extends Component {
               <Route render={(props) => {return (<Home {...props} auth={auth}/>)}} path="/" exact/>
               <Route render={(props) => {return (<SignIn {...props} auth={auth}/>)}} path="/signin" exact/>
               <Route render={(props) => {return (<LogIn {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
+              <PrivateRoute component={PrivateHome} path="/privatehome" exact auth={auth} />
             </Switch>
           </div>
         </Router>

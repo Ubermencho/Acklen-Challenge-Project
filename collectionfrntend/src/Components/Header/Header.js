@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {IoIosLogIn, IoIosHome, IoIosFolder} from 'react-icons/io';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import './Header.css';
 
 export default class Header extends Component{
@@ -34,7 +34,9 @@ export default class Header extends Component{
                 <header>
                     <nav>
                         <ul>
-                            <li><NavLink to="/"><IoIosHome/>Home</NavLink></li>
+                            <li><NavLink to="/privatehome"><IoIosHome/>Home</NavLink></li>
+                            <li><NavLink to="/"><IoIosFolder/>My Collections</NavLink></li>
+                            <li><a onClick={this.logoutOnClick}><IoIosLogIn/>Logout</a></li>
                         </ul>
                     </nav>
                 </header>
