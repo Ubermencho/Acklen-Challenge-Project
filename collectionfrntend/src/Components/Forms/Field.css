@@ -3,11 +3,11 @@ fieldset {
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    width: 100%;
+    width: 100vw;
     border: none;
   }
   fieldset input {
-    width: 100%;
+    width: 93vw;
     border: none;
     border-bottom: 1px solid #000;
     padding: 0.5em 0.5em;

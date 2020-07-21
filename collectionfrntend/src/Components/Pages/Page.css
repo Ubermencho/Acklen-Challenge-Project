@@ -4,11 +4,9 @@
     justify-content: space-between;
     align-items: center;
     min-height: 100vh;
-    padding:0px;
     margin:0px;
   }
   main{
-    padding:1em;
     width:100%;
   }
   
