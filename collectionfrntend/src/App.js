@@ -6,6 +6,7 @@ import {setJWTBearer, setLocalStorage, getLocalStorage, removeLocalStorage} from
 
 import Home from './Components/Pages/Public/Home/Home';
 import SignIn from './Components/Pages/Public/Sign In/Signin';
+import LogIn from './Components/Pages/Public/Login/Login';
 
 class App extends Component {
   constructor(){
@@ -20,6 +21,34 @@ class App extends Component {
       this.state.isLogged = true;
       setJWTBearer(this.state.jwt);
     }
+
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  login(user){
+    const  {jwt, ...fuser} = user;
+    this.setState({
+      ...this.state,
+      isLogged:true,
+      loadingBackend:false,
+      user:fuser,
+      jwt: jwt,
+    });
+    setJWTBearer(jwt);
+    setLocalStorage('jwt', jwt);
+    setLocalStorage('user', fuser);
+  }
+
+  logout(){
+    removeLocalStorage('jwt');
+    removeLocalStorage('user');
+    this.setState({
+      ...this.state,
+      isLogged:false,
+      user:{},
+      jwt:''
+    })
   }
 
     render(){
@@ -34,6 +63,7 @@ class App extends Component {
             <Switch>
               <Route render={(props) => {return (<Home {...props} auth={auth}/>)}} path="/" exact/>
               <Route render={(props) => {return (<SignIn {...props} auth={auth}/>)}} path="/signin" exact/>
+              <Route render={(props) => {return (<LogIn {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
             </Switch>
           </div>
         </Router>
