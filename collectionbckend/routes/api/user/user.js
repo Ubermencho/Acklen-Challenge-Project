@@ -37,14 +37,14 @@ var con = mysql.createConnection({
         var userEmail = req.body.userEmail;
         var userPassword = req.body.userPassword;
 
-        let sql = `select * from users where userPassword = MD5('${userPassword}') AND userEmail= '${userEmail}';`;
+        let sql = `select userID, userName from users where userPassword = MD5('${userPassword}') AND userEmail= '${userEmail}';`;
         con.query(sql, function(err, result){
             if(err) throw err;
             if(!result[0]){
-                res.send("User not found!!!");
+                res.send("User not found!");
             }else{
                 var token = jwt.sign({id: result[0].userID}, 'BlackThenWhiteAreAllISeeInMyInfancy', {expiresIn:'60m'})
-                return res.status(200).json({"user": result, "jwt": token});
+                return res.status(200).json({"user": result, "jwt": token, "Message":"Welcome!"});
             }
         });
     });
