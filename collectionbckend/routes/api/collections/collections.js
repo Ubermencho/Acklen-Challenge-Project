@@ -43,11 +43,8 @@ var con = mysql.createConnection({
 
         con.query(sql, function(err, result){
             if(err) throw err;
-            if(!result[0]){
-                res.send("nothing found!");
-            }else{
                 res.send(result);
-            }
+            
         });
     });
 
