@@ -54,33 +54,26 @@ export default class Collections extends Component{
     render(){
         const uiItems = this.state.results.map(
             (item)=>{
-                console.log(item.Picture);
-                var blob = new Blob(item.Picture.data);
                 var base64Image = new Buffer(item.Picture, 'binary').toString('base64');
-                console.log(base64Image);
                 var source = "data: image/jpeg;base64," + base64Image;
                 return(
                     <div className="listItem" key={parseInt(item.collectionID)}>
                         <img className="image" src={source}></img>
-                        <span>{item.title}</span>
-                        <span>{item.Description}</span>
-                        <span>{item.extras}</span>
+                        <span>Title: {item.title}</span>
+                        <span>Description: {item.Description}</span>
+                        <span>Extras: {item.extras}</span>
                         <span><IoIosInformationCircleOutline></IoIosInformationCircleOutline></span>
                     </div>
                 );
             }
         );
-        if(!uiItems.length) uiItems.push(
-            <div key="pbListAddOne">
-                <span>Nuevo Item</span>
-            </div>
-        )
+        
 
         return(
             <Page pageTitle="Your Collections" auth={this.props.auth}>
                 <div ref={(ref)=>this.scrollParentRef = ref}>
                     <h2>Your Collections!</h2>
-                    <p className="addnew"><IoIosAddCircleOutline></IoIosAddCircleOutline>Add a new Item</p>
+                    <button className="addnew"><IoIosAddCircleOutline></IoIosAddCircleOutline>Add a new Collection</button>
                     <InfiniteScroll
                     pageStart={0}
                     loadMore={this.loadMore}

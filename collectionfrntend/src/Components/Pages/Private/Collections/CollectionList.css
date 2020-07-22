@@ -29,6 +29,8 @@
   .addnew{
     text-align: right;
     color: #010101;
+    background-color: greenyellow;
+    margin-right: -89vw;
   }
 
   .image{
