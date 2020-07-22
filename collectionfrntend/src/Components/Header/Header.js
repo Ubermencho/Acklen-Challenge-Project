@@ -35,7 +35,7 @@ export default class Header extends Component{
                     <nav>
                         <ul>
                             <li><NavLink to="/privatehome"><IoIosHome/>Home</NavLink></li>
-                            <li><NavLink to="/"><IoIosFolder/>My Collections</NavLink></li>
+                            <li><NavLink to="/collections"><IoIosFolder/>My Collections</NavLink></li>
                             <li><a onClick={this.logoutOnClick}><IoIosLogIn/>Logout</a></li>
                         </ul>
                     </nav>
