@@ -10,6 +10,7 @@ import LogIn from './Components/Pages/Public/Login/Login';
 
 import PrivateHome from './Components/Pages/Private/PrivateHome/PrivateHome';
 import collections from './Components/Pages/Private/Collections/CollectionsList';
+import newcollection from './Components/Pages/Private/Collections/NewCollection';
 
 class App extends Component {
   constructor(){
@@ -78,6 +79,7 @@ class App extends Component {
               <Route render={(props) => {return (<LogIn {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
               <PrivateRoute component={PrivateHome} path="/privatehome" exact auth={auth} />
               <PrivateRoute component={collections} path="/collections" exact auth={auth} />
+              <PrivateRoute component={newcollection} path="/newcollection" exact auth={auth} />
             </Switch>
           </div>
         </Router>
