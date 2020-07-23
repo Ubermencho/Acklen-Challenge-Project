@@ -54,12 +54,10 @@ export default class Collections extends Component{
     render(){
         const uiItems = this.state.results.map(
             (item)=>{
-                var base64Image = new Buffer(item.Picture, 'binary').toString('base64');
-                var source = "data: image/png;base64," + base64Image;
-                console.log(item.Picture);
+                
                 return(
                     <div className="listItem" key={parseInt(item.collectionID)}>
-                        <img className="image" src={source}></img>
+                        <img className="image" src={item.Picture}></img>
                         <span>Title: {item.title}</span>
                         <span>Description: {item.Description}</span>
                         <span>Extras: {item.extras}</span>
