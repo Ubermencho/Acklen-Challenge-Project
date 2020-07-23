@@ -1,8 +1,10 @@
 var express = require('express');
 
 var router = express.Router();
+const multer = require("multer");
 
 var mysql = require('mysql');
+var fs = require("fs");
 const { off } = require('../../../app');
 
 var con = mysql.createConnection({
@@ -12,26 +14,43 @@ var con = mysql.createConnection({
      database: "collectiontrackerdb"
 });
 
-
+const upload = multer();
     //http://localhost/api/collections/new
-    router.post('/new', (req,res)=>{
+    router.post('/new',  (req,res)=>{
         var creatorID = req.body.creatorID;
         var title = req.body.title;
         var Description = req.body.Description;
-        var Picture = req.body.Picture;
         var extras = req.body.extras;
-
-        let sql = `insert into collections (creatorID, title, Description, Picture, extras, state) values (${creatorID}, '${title}', '${Description}', '${Picture}', '${extras}', 1);`;
+  
+        let sql = `insert into collections (creatorID, title, Description, extras, state) values (${creatorID}, '${title}', '${Description}', '${extras}', 1);`;
 
          con.query(sql, function(err, result){
             if (err) throw err;
-
+            console.log(result.insertId);
             if(result.affectedRows==0){
-                res.send("Something went wrong...");
+                res.send({Message:"There was an error..."})
+                
             }else{
-                res.send("Success!");
+                res.send({Message:"Success!", insertId:result.insertId});
             }
          })
+         //console.log(results);
+         
+    });
+
+    //http://localhost/api/collections/newimage
+    router.put('/newimage/:itemid', upload.single('file'), function (req,res, next){
+        var itemid = req.params.itemid;
+        console.log(req.file);
+        var blobimg = new Blob(req.file);
+
+        let sql= `update collections set Picture = '${blobimg}' where collectionID =${itemid};`
+
+        con.query(sql,function(err, result){
+            if(err) throw err;
+            res.send(result);
+        })
+ 
     });
 
     //http://localhost:5000/api/collecctions/all/:id/:offset/:items
@@ -46,6 +65,7 @@ var con = mysql.createConnection({
                 res.send(result);
             
         });
+        
     });
 
     //http://localhost:5000/api/collections/detail/:id/:offset/:items
