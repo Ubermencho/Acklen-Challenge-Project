@@ -1,11 +1,14 @@
 var express = require('express');
-
+var bodyParser = require('body-parser');
+var app = express();
 var router = express.Router();
+
+
+app.use(bodyParser.json({limit:'50mb', extended:true}));
+app.use(bodyParser.urlencoded({limit:'50mb', extended:true}));
 const multer = require("multer");
 
 var mysql = require('mysql');
-var fs = require("fs");
-const { off } = require('../../../app');
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -21,8 +24,9 @@ const upload = multer();
         var title = req.body.title;
         var Description = req.body.Description;
         var extras = req.body.extras;
+        var Picture = req.body.Picture;
   
-        let sql = `insert into collections (creatorID, title, Description, extras, state) values (${creatorID}, '${title}', '${Description}', '${extras}', 1);`;
+        let sql = `insert into collections (creatorID, title, Description, Picture, extras, state) values (${creatorID}, '${title}', '${Description}', '${Picture}', '${extras}', 1);`;
 
          con.query(sql, function(err, result){
             if (err) throw err;
@@ -38,20 +42,6 @@ const upload = multer();
          
     });
 
-    //http://localhost/api/collections/newimage
-    router.put('/newimage/:itemid', upload.single('file'), function (req,res, next){
-        var itemid = req.params.itemid;
-        console.log(req.file);
-        var blobimg = new Blob(req.file);
-
-        let sql= `update collections set Picture = '${blobimg}' where collectionID =${itemid};`
-
-        con.query(sql,function(err, result){
-            if(err) throw err;
-            res.send(result);
-        })
- 
-    });
 
     //http://localhost:5000/api/collecctions/all/:id/:offset/:items
     router.get('/all/:id/:offset/:items', (req,res)=>{
