@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import {Link} from 'react-router-dom';
-import {IoIosInformationCircleOutline, IoIosAdd, IoIosAddCircleOutline, IoMdRemove} from 'react-icons/io';
+import {IoIosInformationCircleOutline, IoIosAddCircleOutline} from 'react-icons/io';
 import {getLocalStorage} from '../../../Utilities/Utilities'
 
 import Page from '../../Page';
@@ -55,7 +55,8 @@ export default class Collections extends Component{
         const uiItems = this.state.results.map(
             (item)=>{
                 var base64Image = new Buffer(item.Picture, 'binary').toString('base64');
-                var source = "data: image/jpeg;base64," + base64Image;
+                var source = "data: image/png;base64," + base64Image;
+                console.log(item.Picture);
                 return(
                     <div className="listItem" key={parseInt(item.collectionID)}>
                         <img className="image" src={source}></img>
@@ -73,7 +74,7 @@ export default class Collections extends Component{
             <Page pageTitle="Your Collections" auth={this.props.auth}>
                 <div ref={(ref)=>this.scrollParentRef = ref}>
                     <h2>Your Collections!</h2>
-                    <button className="addnew"><IoIosAddCircleOutline></IoIosAddCircleOutline>Add a new Collection</button>
+                    <Link to="/newcollection"><button className="addnew"><IoIosAddCircleOutline></IoIosAddCircleOutline>Add a new Collection</button></Link>
                     <InfiniteScroll
                     pageStart={0}
                     loadMore={this.loadMore}
