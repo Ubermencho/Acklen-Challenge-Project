@@ -86,9 +86,9 @@ const upload = multer();
         con.query(sql, function(err, result){
             if(err) throw err;
             if(result.affectedRows==0){
-                res.send("There was an error adding the item!");
+                res.send({Message:"There was an error adding your Item"})
             }else{
-                res.send("Item added successfully!");
+                res.send({Message:"Item added successfully!"});
             }
         });
     });
