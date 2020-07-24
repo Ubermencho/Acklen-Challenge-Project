@@ -68,11 +68,7 @@ const upload = multer();
 
         con.query(sql, function(err, results){
             if(err) throw err;
-            if(!results[0]){
-                res.send("not found");
-            }else{
-                res.send(results);
-            }
+            res.send(results)
         });
     });
 
