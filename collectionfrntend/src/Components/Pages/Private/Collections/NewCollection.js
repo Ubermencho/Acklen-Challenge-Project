@@ -93,12 +93,12 @@ export default class NewCollection extends Component{
             saxios.post(uri, {creatorID: collcreator, title: colltitle, Description:colldesc, Picture: collPic, extras: collextras})
             .then((resp)=>{
                 alert(resp.data.Message);
-                
+                this.setState({...this.state, redirect: true });
             })
             .catch((error)=>{
                 alert(error);
             })
-            this.state.redirect = true;
+            
         }
     }  
 
@@ -211,7 +211,8 @@ export default class NewCollection extends Component{
     render(){
       const { crop, profile_pic, src, croppedUrl} = this.state
       if(this.state.redirect){
-        return (<Redirect to="/collections"/>);
+        const redirect = (this.props.location.state) ? this.props.location.state.from.pathname : '/collections';
+        return (<Redirect to={redirect}/>);
       }
         return(
             <Page pageTitle="New Collection" auth={this.props.auth}>

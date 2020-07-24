@@ -48,6 +48,7 @@ export default class Collections extends Component{
         .catch((error)=>{
             console.log(error);
           })
+          console.log(this.state.hasMore);
     }
 
  
@@ -61,7 +62,9 @@ export default class Collections extends Component{
                         <span>Title: {item.title}</span>
                         <span>Description: {item.Description}</span>
                         <span>Extras: {item.extras}</span>
-                        <span><IoIosInformationCircleOutline></IoIosInformationCircleOutline></span>
+                        <Link to={`/collections/${item.collectionID}`}>
+                         <IoIosInformationCircleOutline size ='2em' color="black"/>
+                        </Link>
                     </div>
                 );
             }
