@@ -37,7 +37,7 @@ export default class CollectionDetail extends Component{
                 }
             }
         ).catch((error)=>{
-            console.log(error);
+            alert(error);
         })
         }
 
@@ -66,7 +66,7 @@ export default class CollectionDetail extends Component{
                         hasMore={this.state.hasMore}
                         threshold={108}
                         getScrollParent={()=>this.scrollParentRef}
-                        loader={<div key="pblistLoading" key={0}>Loading Items...</div>}
+                        loader={<div key="pblistLoading" >Loading Items...</div>}
                         >
                             {uiItems}
                         </InfiniteScroll>

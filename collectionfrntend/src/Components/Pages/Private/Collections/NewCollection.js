@@ -203,7 +203,6 @@ export default class NewCollection extends Component{
       }
       let croppedImage = new File([u8arr], filename, { type: mime });
       this.setState({ croppedImage: croppedImage, croppedUrl: dataurl })
-      console.log(this.state.croppedUrl);
     }
 
 

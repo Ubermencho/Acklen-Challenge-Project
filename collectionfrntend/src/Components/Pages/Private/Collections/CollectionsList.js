@@ -30,7 +30,6 @@ export default class Collections extends Component{
         .then(
             ({data})=>{
                 const apiItems = data;
-                console.log(apiItems);
                 const total = data.length;
                 const loadedItems = this.state.results;
                 apiItems.map((e)=>loadedItems.push(e));
@@ -46,9 +45,8 @@ export default class Collections extends Component{
             }
         )
         .catch((error)=>{
-            console.log(error);
+            alert(error);
           })
-          console.log(this.state.hasMore);
     }
 
  
@@ -82,7 +80,7 @@ export default class Collections extends Component{
                     hasMore={this.state.hasMore}
                     threshold={108}
                     getScrollParent={()=>this.scrollParentRef}
-                    loader={<div key="pbListLoading" key={0}>Loading Collections...</div>}
+                    loader={<div key="pbListLoading">Loading Collections...</div>}
                     >
                         {uiItems}
                     </InfiniteScroll>
