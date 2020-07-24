@@ -11,6 +11,7 @@ import LogIn from './Components/Pages/Public/Login/Login';
 import PrivateHome from './Components/Pages/Private/PrivateHome/PrivateHome';
 import collections from './Components/Pages/Private/Collections/CollectionsList';
 import newcollection from './Components/Pages/Private/Collections/NewCollection';
+import collectionDetail from './Components/Pages/Private/Collections/CollectionDetail';
 
 class App extends Component {
   constructor(){
@@ -80,6 +81,7 @@ class App extends Component {
               <PrivateRoute component={PrivateHome} path="/privatehome" exact auth={auth} />
               <PrivateRoute component={collections} path="/collections" exact auth={auth} />
               <PrivateRoute component={newcollection} path="/newcollection" exact auth={auth} />
+              <PrivateRoute component={collectionDetail} path="/collections/:id" exact auth={auth} />
             </Switch>
           </div>
         </Router>
