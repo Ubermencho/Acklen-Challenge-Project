@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import {Link} from 'react-router-dom';
 import {IoIosInformationCircleOutline, IoIosAddCircleOutline} from 'react-icons/io';
-import {getLocalStorage} from '../../../Utilities/Utilities'
+import {getLocalStorage, removeLocalStorage} from '../../../Utilities/Utilities'
 
 import Page from '../../Page';
 import './CollectionList.css';
@@ -23,6 +23,7 @@ export default class Collections extends Component{
 
     loadMore(){
         const items = this.state.itemsToLoad;
+        removeLocalStorage('collID');
         const userID = getLocalStorage('userID');
         const uri = `/api/collections/all/${parseInt(userID)}/${parseInt(this.state.offset)}/${items}`;
 
