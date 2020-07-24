@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Page from '../../Page';
 import {Redirect, Link} from 'react-router-dom';
-import {saxios} from '../../../Utilities/Utilities';
+import {saxios, setLocalStorage} from '../../../Utilities/Utilities';
 import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosAddCircleOutline } from 'react-icons/io';
+import { IoIosAddCircleOutline,IoIosTrash, IoIosList } from 'react-icons/io';
 
 export default class CollectionDetail extends Component{
     constructor(){
@@ -20,6 +20,7 @@ export default class CollectionDetail extends Component{
     loadMore(){
         const items = this.state.itemsToLoad;
         const collectionID = this.props.match.params.id;
+        setLocalStorage('collID', this.props.match.params.id);
         const uri = `/api/collections/detail/${collectionID}/${this.state.offset}/${items}`;
         
         saxios.get(uri)
@@ -41,6 +42,7 @@ export default class CollectionDetail extends Component{
         })
         }
 
+
     render(){
         const uiItems = this.state.results.map(
             (item)=>{
@@ -51,6 +53,11 @@ export default class CollectionDetail extends Component{
                         <span>Description: {item.itemDescription}</span>
                         <span>Value: {item.itemValue}</span>
                         <span>Condition: {item.itemCondition}</span>
+                        <Link to={`/editItem/${item.itemID}`} >
+                        <IoIosList size="2em" color="black"></IoIosList>
+                        </Link>
+                        
+                        <IoIosTrash size="2em"></IoIosTrash>
                     </div>
                 );
             }
@@ -59,7 +66,7 @@ export default class CollectionDetail extends Component{
             <Page pageTitle="Collection's Detail" auth={this.props.auth}>
                 <div ref={(ref)=>this.scrollParentRef = ref}>
                         <h2>Items in this Collection</h2>
-                        <Link ><button className="addnew"><IoIosAddCircleOutline size="2em"/>Add a new Item to this collection</button></Link>
+                        <Link to={`/newItem`}><button className="addnew"><IoIosAddCircleOutline size="2em"/>Add a new Item to this collection</button></Link>
                         <InfiniteScroll
                         pageStart={0}
                         loadMore={this.loadMore}
