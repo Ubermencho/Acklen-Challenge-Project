@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Page from '../../Page';
 import {Redirect, Link} from 'react-router-dom';
-import {saxios, setLocalStorage} from '../../../Utilities/Utilities';
+import {saxios, setLocalStorage, getLocalStorage} from '../../../Utilities/Utilities';
 import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosAddCircleOutline,IoIosTrash, IoIosList } from 'react-icons/io';
+import { IoIosAddCircleOutline,IoIosTrash, IoIosList, IoIosShare } from 'react-icons/io';
 
 export default class CollectionDetail extends Component{
     constructor(){
@@ -53,6 +53,12 @@ export default class CollectionDetail extends Component{
         
     }
 
+    generateShareLink(){
+        var collID = getLocalStorage('collID');
+        var link = `localhost:3000/collections/shared/${collID}`;
+        alert("Share this link: " + link);
+    }
+
 
     render(){
         if(this.state.redirect){
@@ -83,6 +89,7 @@ export default class CollectionDetail extends Component{
                 <div ref={(ref)=>this.scrollParentRef = ref}>
                         <h2>Items in this Collection</h2>
                         <Link to={`/newItem`}><button className="addnew"><IoIosAddCircleOutline size="2em"/>Add a new Item to this collection</button></Link>
+                        <button className="addnew" onClick={this.generateShareLink}><IoIosShare size="2em"/>Share This Collection!</button>
                         <InfiniteScroll
                         pageStart={0}
                         loadMore={this.loadMore}
