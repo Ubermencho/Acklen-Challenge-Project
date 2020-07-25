@@ -55,7 +55,7 @@ export default class CollectionDetail extends Component{
 
     generateShareLink(){
         var collID = getLocalStorage('collID');
-        var link = `localhost:3000/collections/shared/${collID}`;
+        var link = `collections/shared/${collID}`;
         alert("Share this link: " + link);
     }
 
