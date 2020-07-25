@@ -12,9 +12,12 @@ export default class CollectionDetail extends Component{
             results:[],
             hasMore:true,
             offset:0,
-            itemsToLoad:10
+            itemsToLoad:10,
+            itemID:0,
+            redirect:false
         }
         this.loadMore = this.loadMore.bind(this);
+        this.setItemID = this.setItemID.bind(this);
     }
 
     loadMore(){
@@ -42,8 +45,21 @@ export default class CollectionDetail extends Component{
         })
         }
 
+    setItemID(id){
+        this.setState({
+            'itemID':id,
+            'redirect':true
+        });
+        
+    }
+
 
     render(){
+        if(this.state.redirect){
+            const redirect = (this.props.location.state) ? this.props.location.state.from.pathname : `/deleteItem/${this.state.itemID}`;
+           
+            return (<Redirect to={redirect}/>);
+          }
         const uiItems = this.state.results.map(
             (item)=>{
                 return(
@@ -57,7 +73,7 @@ export default class CollectionDetail extends Component{
                         <IoIosList size="2em" color="black"></IoIosList>
                         </Link>
                         
-                        <IoIosTrash size="2em"></IoIosTrash>
+                        <IoIosTrash size="2em" onClick={()=>this.setItemID(item.itemID)}></IoIosTrash>
                     </div>
                 );
             }

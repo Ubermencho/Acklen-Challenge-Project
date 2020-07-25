@@ -100,7 +100,6 @@ export default class EditItem extends Component{
             const itemValue = this.state.itemValue;
             const itemCondition = this.state.itemCondition
             const collPic =this.state.croppedUrl;
-            console.log(collPic);
             const itemID = getLocalStorage('itemID');
             
             const uri = `/api/collections/item/upd/${itemID}`;

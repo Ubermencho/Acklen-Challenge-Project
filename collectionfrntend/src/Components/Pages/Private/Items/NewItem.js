@@ -98,7 +98,6 @@ export default class NewItem extends Component{
             const itemValue = this.state.itemValue;
             const itemCondition = this.state.itemCondition
             const collPic =this.state.croppedUrl;
-            console.log(collPic);
             const collID = getLocalStorage('collID');
             
             const uri = `/api/collections/item/new`;
