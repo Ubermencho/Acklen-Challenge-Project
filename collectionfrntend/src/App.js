@@ -7,6 +7,7 @@ import {setJWTBearer, setLocalStorage, getLocalStorage, removeLocalStorage} from
 import Home from './Components/Pages/Public/Home/Home';
 import SignIn from './Components/Pages/Public/Sign In/Signin';
 import LogIn from './Components/Pages/Public/Login/Login';
+import SharedCollection from './Components/Pages/Public/SharedCollection/SharedCollection';
 
 import PrivateHome from './Components/Pages/Private/PrivateHome/PrivateHome';
 import collections from './Components/Pages/Private/Collections/CollectionsList';
@@ -81,6 +82,7 @@ class App extends Component {
               <Route render={(props) => {return (<Home {...props} auth={auth}/>)}} path="/" exact/>
               <Route render={(props) => {return (<SignIn {...props} auth={auth}/>)}} path="/signin" exact/>
               <Route render={(props) => {return (<LogIn {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
+              <Route render={(props) => {return (<SharedCollection {...props} auth={auth}/>)}} path="/collections/shared/:id" exact/>
               <PrivateRoute component={PrivateHome} path="/privatehome" exact auth={auth} />
               <PrivateRoute component={collections} path="/collections" exact auth={auth} />
               <PrivateRoute component={newcollection} path="/newcollection" exact auth={auth} />
