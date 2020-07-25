@@ -82,7 +82,7 @@ const upload = multer();
         var collectionID = req.body.collectionid;
 
         let sql = `insert into items (itemName, itemDescription, itemValue, itemCondition, picture, collectionID) values ('${itemName}', '${description}', ${value}, '${condition}', '${picture}', ${collectionID});`;
-
+        
         con.query(sql, function(err, result){
             if(err) throw err;
             if(result.affectedRows==0){
@@ -108,9 +108,9 @@ const upload = multer();
             if(err) throw err;
 
             if(result.affectedRows==0){
-                res.send("There was an error updating the item!");
+                res.send({Message:"There was an error updating the item!"});
             }else{
-                res.send("Item updated successfully!");
+                res.send({Message:"Item updated successfully!"});
             }
         });
     });
@@ -124,9 +124,9 @@ const upload = multer();
         con.query(sql, function(err, result){
             if(err) throw err;
             if(result.affectedRows==0){
-                res.send("There was an error deleting the item!");
+                res.send({Message:"There was an error deleting the item!"});
             }else{
-                res.send("Item deleted successfully!");
+                res.send({Message:"Item deleted successfully!"});
             }
         });
     });
