@@ -14,6 +14,7 @@ import newcollection from './Components/Pages/Private/Collections/NewCollection'
 import collectionDetail from './Components/Pages/Private/Collections/CollectionDetail';
 import newItem from './Components/Pages/Private/Items/NewItem';
 import editItem from './Components/Pages/Private/Items/EditItem';
+import deleteItem from './Components/Pages/Private/Items/DeleteItem';
 
 class App extends Component {
   constructor(){
@@ -86,6 +87,7 @@ class App extends Component {
               <PrivateRoute component={collectionDetail} path="/collections/:id" exact auth={auth} />
               <PrivateRoute component={newItem} path="/newItem" exact auth={auth} />
               <PrivateRoute component={editItem} path="/editItem/:id" exact auth={auth} />
+              <PrivateRoute component={deleteItem} path="/deleteItem/:id" exact auth={auth} />
             </Switch>
           </div>
         </Router>
