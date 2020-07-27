@@ -5,6 +5,7 @@ use collectiontrackerdb;
 
 CREATE TABLE `users`(
 `userID` bigint NOT NULL auto_increment,
+`userName` varchar(50) NOT NUll,
 `userEmail` varchar(50) NOT NULL UNIQUE,
 `userPassword` varchar(100) NOT NULL,
 PRIMARY KEY (`userID`),
@@ -16,7 +17,7 @@ CREATE TABLE `collections`(
 `creatorID` bigint NOT NULL,
 `title` nvarchar(100) NOT NULL,
 `Description` nvarchar(250) NOT NULL,
-`Picture` longblob,
+`Picture` longtext,
 `extras` nvarchar(100),
 `state` int NOT NULL,
 PRIMARY KEY (`collectionID`),
@@ -31,7 +32,7 @@ CREATE TABLE `items`(
 `itemDescription` nvarchar(150) NOT NULL,
 `itemValue` decimal(13,2) NOT NULL,
 `itemCondition` varchar(30) NOT NULL,
-`picture` longblob,
+`picture` longtext,
 `collectionID` bigint NOT NULL,
 PRIMARY KEY (`itemID`),
 UNIQUE KEY `itemID_UNIQUE`(`itemID`),
